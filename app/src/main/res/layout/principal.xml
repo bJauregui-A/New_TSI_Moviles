@@ -21,7 +21,7 @@
 				android:id="@+id/btn_cursos"
 				android:layout_width="300dp"
 				android:layout_height="wrap_content"
-				android:text="Cursls"
+				android:text="Cursos"
 				android:layout_marginTop="50dp"
 		/>
 		<Button
@@ -31,10 +31,10 @@
 				android:text="Certificados"
 		/>
 		<Button
-				android:id="@+id/btn_gestiones3"
+				android:id="@+id/btn_cursos_user"
 				android:layout_width="300dp"
 				android:layout_height="wrap_content"
-				android:text="Gestiones"
+				android:text="Cursos user"
 		/>
 		<Button
 				android:id="@+id/btn_perfil"

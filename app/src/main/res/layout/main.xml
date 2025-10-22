@@ -29,16 +29,19 @@
 
 		<EditText
 				android:id="@+id/ip"
+
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/email"
+			android:text="si@si.si"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
             />
         <EditText
             android:id="@+id/password"
+			android:text="0862"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

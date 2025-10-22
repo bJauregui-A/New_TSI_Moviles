@@ -4,7 +4,7 @@ import com.example.new_tsi_moviles.dto.CursoDTO;
 
 import java.util.List;
 
-public interface CursoCallback {
-    void onSuccess(CursoDTO curso);
+public interface CursosCallback {
+    void onSuccess(List<CursoDTO> cursos);
     void onError(Exception e);
 }

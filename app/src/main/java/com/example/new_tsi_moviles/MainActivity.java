@@ -100,8 +100,14 @@ public class MainActivity extends AppCompatActivity {
                             // Procesar JSON recibido
                             SharedPreferences prefs = getSharedPreferences("AppConfig", MODE_PRIVATE);
                             prefs.edit().putString("ip", "http://"+ip+":8080").apply();
+                            String token = null;
+                            try {
+                                token = response.getString("token");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
 
-                            prefs.edit().putString("token",response.toString()).apply();
+                                prefs.edit().putString("token",token).apply();
 
                             Intent intent = new Intent(MainActivity.this, Principal.class);
                             startActivity(intent);

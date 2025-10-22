@@ -5,20 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CursoDTO {
-
+public class UserDTO {
     private Long id;
     private String nombre;
-    private String descripcion;
-    private Integer precio;
-    private Integer horas;
-    private String dirigidoa;
-    private String modalidad;
-    private String linkPago;
-    private Boolean activo;
-
+    private String apellido;
+    private String email;
+    private Set<String> roles;
 }

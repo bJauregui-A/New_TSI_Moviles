@@ -134,24 +134,16 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_editar_vista"
+                    android:id="@+id/btn_comprar_vista"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:text="Editar"
+                    android:text="Comprar"
                     android:textColor="#FFFFFF"
                     android:background="@android:color/black" />
 
-                <Button
-                    android:id="@+id/btn_borrar_vista"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="Eliminar"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/black" />
+
                 <Button
                     android:id="@+id/btn_cancelar_vista"
                     android:layout_width="0dp"

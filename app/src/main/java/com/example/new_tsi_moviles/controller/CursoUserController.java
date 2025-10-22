@@ -2,12 +2,13 @@ package com.example.new_tsi_moviles.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.R;
 import com.example.new_tsi_moviles.adapter.CursoAdapter;
@@ -18,12 +19,11 @@ import com.example.new_tsi_moviles.service.CursoService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursoController extends AppCompatActivity {
+public class CursoUserController extends AppCompatActivity {
     Context ctx;
-    Switch switch1;
     ListView listView;
     List<CursoDTO> cursosLocal;
-    Button btn_agregar;
+
     EditText buscar;
     CursoService cursoService;
     CursoAdapter cursoAdapter;
@@ -31,25 +31,19 @@ public class CursoController extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gestion_cursos);
+        setContentView(R.layout.ver_cursos);
 
         ctx = this;
         buscar = findViewById(R.id.text_buscar);
-        btn_agregar = findViewById(R.id.btn_add);
         cursosLocal = new ArrayList<>();
-        switch1 = findViewById(R.id.switchActivos);
         cursoService = new CursoService(this);
         listView = findViewById(R.id.lista_cursos);
 
         // Crear adapter una sola vez
-        cursoAdapter = new CursoAdapter(ctx, cursosLocal,0);
+        cursoAdapter = new CursoAdapter(ctx, cursosLocal,1);
         listView.setAdapter(cursoAdapter);
 
-        btn_agregar.setOnClickListener(v -> {
-            startActivity(new Intent(ctx, CrearCursoController.class));
-        });
 
-        switch1.setOnCheckedChangeListener((buttonView, isChecked) -> actualizarLista());
         buscar.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -63,10 +57,7 @@ public class CursoController extends AppCompatActivity {
     }
 
     private void actualizarLista() {
-        String ruta = switch1.isChecked() ? "/all" : "/allA";
-        if (!buscar.getText().toString().equals("") && !buscar.getText().toString().equals("")) {
-            ruta += "/"+buscar.getText().toString();
-        }
+
 
 
         cursoService.getCursos(new CursosCallback() {
@@ -80,7 +71,7 @@ public class CursoController extends AppCompatActivity {
             public void onError(Exception e) {
                 e.printStackTrace();
             }
-        }, ruta);
+        }, "/allA");
     }
 
     @Override

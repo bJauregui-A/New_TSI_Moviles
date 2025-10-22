@@ -23,6 +23,12 @@
 		</activity>
 		<activity android:name=".controller.Principal"></activity>
 		<activity android:name=".controller.CursoController"></activity>
+		<activity android:name=".controller.CursoUserController"></activity>
+		<activity android:name=".controller.VistaCurso"></activity>
+		<activity android:name=".controller.PerfilController"></activity>
+		<activity android:name=".controller.VistaCursoUser"></activity>
+		<activity android:name=".controller.CrearCursoController"></activity>
+		<activity android:name=".controller.EditCurso"></activity>
 
 	</application>
 

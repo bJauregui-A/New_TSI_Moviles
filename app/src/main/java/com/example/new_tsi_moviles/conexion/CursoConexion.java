@@ -8,10 +8,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.new_tsi_moviles.dto.CursoDTO;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,80 +18,224 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class CursoConexion {
 
-    private String ip,url,strinToken;
-    private JSONObject token;
-    Context context;
+    private String ip, url, strinToken;
+    private Context context;
+
     public CursoConexion(Context context) {
-         this.context = context;
+        this.context = context;
         SharedPreferences prefs = context.getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
         ip = prefs.getString("ip", null);
-        strinToken = prefs.getString("token",null);
+        strinToken = prefs.getString("token", null); // Obtenemos el token como String
 
-        if (strinToken != null) {
-            try {
-                JSONObject token = new JSONObject(strinToken);
-
-            }catch (JSONException e){
-            e.printStackTrace();}
-        }
-
-        url = ip+"/cursos";
+        url = ip + "/cursos";
     }
 
-    public void getCursos(CursoCallback callback) {
+
+    public void getCursos(CursosCallback callback, String ruta) {
 
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
-                url + "/allA",
+                url + ruta, // La URL final se construye aquí
                 null,
                 response -> {
                     List<CursoDTO> cursos = new ArrayList<>();
-
                     try {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject cursoJson = response.getJSONObject(i);
-
                             cursos.add(CursoDTO.builder()
                                     .id(cursoJson.getLong("id"))
                                     .descripcion(cursoJson.getString("descripcion"))
                                     .horas(cursoJson.getInt("horas"))
-                                    .dirigidoa(cursoJson.getString("dirigidoa")) // <- nombre correcto
+                                    .dirigidoa(cursoJson.getString("dirigidoa"))
                                     .linkPago(cursoJson.getString("linkPago"))
                                     .modalidad(cursoJson.getString("modalidad"))
                                     .nombre(cursoJson.getString("nombre"))
                                     .precio(cursoJson.getInt("precio"))
                                     .build());
                         }
-
                         callback.onSuccess(cursos);
-
                     } catch (JSONException e) {
                         callback.onError(e);
                     }
                 },
                 error -> callback.onError(error)
-        )
-        {
+        ) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json"); // opcional, depende de tu API
                 if (strinToken != null && !strinToken.isEmpty()) {
-                    headers.put("Authorization", "Bearer " + token);
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
                 }
                 return headers;
             }
-        }
-                ;
+        };
 
         queue.add(request);
     }
 
+    public void updateCurso(CursoCallback callback,JSONObject cursoJson) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                cursoJson,
+                response -> {
+                    try {
+                        callback.onSuccess(CursoDTO.builder()
+                                        .activo(response.getBoolean("activo"))
+                                        .horas(response.getInt("horas"))
+                                        .precio(response.getInt("precio"))
+                                .descripcion(cursoJson.getString("descripcion"))
+                                        .id(response.getLong("id"))
+                                        .nombre(cursoJson.getString("nombre"))
+                                        .modalidad(cursoJson.getString("modalidad"))
+                                        .linkPago(cursoJson.getString("linkPago"))
+                                        .dirigidoa(cursoJson.getString("dirigidoa"))
+
+                                .build());
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                },
+                error -> {
+                    callback.onError(error);
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+
+                    headers.put("Authorization", "Bearer " + strinToken);
+
+                }
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
+    public void createCurso(MensajeCallback callback,JSONObject cursoJson) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, // o PUT
+                url+"/create",
+                cursoJson, // <-- Aquí va el body
+                response -> {
+                    callback.onSuccess("Curso Creado");
+                },
+                error -> {
+                    callback.onError(error);
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+
+                }
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
+    public void getCurso(CursoCallback callback,Long id) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url + "/id/"+id.toString(), // La URL final se construye aquí
+                null,
+                response -> {
+
+                    try {
+
+                            JSONObject cursoJson = response;
+                            CursoDTO curso = CursoDTO.builder()
+                                    .id(cursoJson.getLong("id"))
+                                    .activo(cursoJson.getBoolean("activo"))
+                                    .descripcion(cursoJson.getString("descripcion"))
+                                    .horas(cursoJson.getInt("horas"))
+                                    .dirigidoa(cursoJson.getString("dirigidoa"))
+                                    .linkPago(cursoJson.getString("linkPago"))
+                                    .modalidad(cursoJson.getString("modalidad"))
+                                    .nombre(cursoJson.getString("nombre"))
+                                    .precio(cursoJson.getInt("precio"))
+                                    .build();
+
+                        callback.onSuccess(curso);
+                    } catch (JSONException e) {
+                        callback.onError(e);
+                    }
+                },
+                error -> callback.onError(error)
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
+
+    public void deleteCurso(MensajeCallback callback,Long id) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        Request<String> request = new Request<String>(
+                Request.Method.DELETE,
+                url + "/delete/"+id.toString(), // La URL final se construye aquí
+                null
+        ) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+
+            @Override
+            protected Response parseNetworkResponse(NetworkResponse networkResponse) {
+                return Response.success("Curso Eliminado", null);
+            }
+
+            @Override
+            protected void deliverResponse(String response) {
+                callback.onSuccess(response);
+
+            }
+        };
+
+        queue.add(request);
+    }
 
 }
