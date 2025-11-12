@@ -8,9 +8,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.R;
 import com.example.new_tsi_moviles.adapter.CursoAdapter;
+import com.example.new_tsi_moviles.adapter.InscripcionesAdapter;
 import com.example.new_tsi_moviles.conexion.CursosCallback;
+import com.example.new_tsi_moviles.conexion.InscripcionCallback;
+import com.example.new_tsi_moviles.conexion.InscripcionesCallback;
 import com.example.new_tsi_moviles.conexion.PerfilCallback;
 import com.example.new_tsi_moviles.dto.CursoDTO;
+import com.example.new_tsi_moviles.dto.InscripcionDTO;
 import com.example.new_tsi_moviles.dto.UserDTO;
 import com.example.new_tsi_moviles.service.InscripcionService;
 import com.example.new_tsi_moviles.service.PerfilService;
@@ -23,11 +27,11 @@ public class PerfilController extends AppCompatActivity {
     private ListView lvCursos;
     private Button btnAtras;
 
-    private List<CursoDTO> cursosLocal;
+    private List<InscripcionDTO> cursosLocal;
 
     private InscripcionService  inscripcionService;
     private PerfilService perfilService;
-    private CursoAdapter cursoAdapter;
+    private InscripcionesAdapter cursoAdapter;
 
     private UserDTO usuario;
 
@@ -46,11 +50,12 @@ public class PerfilController extends AppCompatActivity {
         inscripcionService = new InscripcionService(this);
         perfilService = new PerfilService(this);
 
-        cursoAdapter = new CursoAdapter(this, cursosLocal,0);
+        cursoAdapter = new InscripcionesAdapter(this, cursosLocal,usuario);
         lvCursos.setAdapter(cursoAdapter);
 
 
         btnAtras.setOnClickListener(v -> finish());
+
         perfilService.getPerfil(new  PerfilCallback(){
 
             @Override
@@ -60,12 +65,9 @@ public class PerfilController extends AppCompatActivity {
                 tvApellido.setText(usuario.getApellido());
                 tvEmail.setText(usuario.getEmail());
                 actualizarLista();
-
             }
-
             @Override
             public void onError(Exception e) {
-
             }
         });
 
@@ -73,9 +75,23 @@ public class PerfilController extends AppCompatActivity {
     }
     private void actualizarLista() {
 
-        inscripcionService.getCursosByUser(new CursosCallback() {
+        inscripcionService.getByUser(new InscripcionesCallback() {
             @Override
-            public void onSuccess(List<CursoDTO> cursos) {
+            public void onSuccess(List<InscripcionDTO> inscripcion) {
+                cursosLocal.clear();
+                cursosLocal.addAll(inscripcion);
+                cursoAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        }, usuario.getId());
+
+        inscripcionService.getByUser(new InscripcionesCallback() {
+            @Override
+            public void onSuccess(List<InscripcionDTO> cursos) {
                 cursosLocal.clear();
                 cursosLocal.addAll(cursos);
                 cursoAdapter.notifyDataSetChanged();

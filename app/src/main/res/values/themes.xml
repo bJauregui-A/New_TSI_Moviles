@@ -1,8 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<!-- Base application theme. -->
-	<style name="Base.Theme.New_TSI_Moviles" parent="Theme.Material3.DayNight.NoActionBar">
-		<!-- Customize your light theme here. -->
-		<!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+	<!-- Tema oscuro base -->
+	<style name="Base.Theme.New_TSI_Moviles" parent="Theme.Material3.Dark.NoActionBar">
+		<!-- Colores principales -->
+		<item name="colorPrimary">@color/dark_primary</item>
+		<item name="colorOnPrimary">@color/white</item>
+		<item name="colorSecondary">@color/dark_secondary</item>
+		<item name="colorTertiary">@color/dark_tertiary</item>
+
+		<!-- Fondo general -->
+		<item name="android:windowBackground">@color/dark_background</item>
+		<item name="android:textColor">@color/white</item>
+
+		<!-- Forzar modo oscuro -->
+		<item name="android:forceDarkAllowed">false</item>
 	</style>
 
 	<style name="Theme.New_TSI_Moviles" parent="Base.Theme.New_TSI_Moviles"/>

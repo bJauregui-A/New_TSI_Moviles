@@ -6,10 +6,11 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.MainActivity;
 import com.example.new_tsi_moviles.R;
+import com.example.new_tsi_moviles.conexion.JokeCallback;
 
 public class Principal extends AppCompatActivity {
 
-    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser;
+    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser,btn_Joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class Principal extends AppCompatActivity {
         btnPerfil = findViewById(R.id.btn_perfil);
         bntnCertificados = findViewById(R.id.btn_certificados);
         btn_cursosUser = findViewById(R.id.btn_cursos_user);
+        btn_Joke = findViewById(R.id.bad_joke);
 
         btnCursos.setOnClickListener(v -> {
             Intent intent = new Intent(this, CursoController.class);
@@ -36,5 +38,13 @@ public class Principal extends AppCompatActivity {
             startActivity(intent);
         });
 
+        bntnCertificados.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CertificadosController.class);
+            startActivity(intent);
+        });
+        btn_Joke.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BadJokeController.class);
+            startActivity(intent);
+        });
     }
 }

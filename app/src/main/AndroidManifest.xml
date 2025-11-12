@@ -21,14 +21,16 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-		<activity android:name=".controller.Principal"></activity>
-		<activity android:name=".controller.CursoController"></activity>
-		<activity android:name=".controller.CursoUserController"></activity>
-		<activity android:name=".controller.VistaCurso"></activity>
-		<activity android:name=".controller.PerfilController"></activity>
-		<activity android:name=".controller.VistaCursoUser"></activity>
-		<activity android:name=".controller.CrearCursoController"></activity>
-		<activity android:name=".controller.EditCurso"></activity>
+		<activity android:name=".controller.Principal"/>
+		<activity android:name=".controller.CursoController"/>
+		<activity android:name=".controller.CursoUserController"/>
+		<activity android:name=".controller.VistaCurso"/>
+		<activity android:name=".controller.PerfilController"/>
+		<activity android:name=".controller.VistaCursoUser"/>
+		<activity android:name=".controller.CrearCursoController"/>
+		<activity android:name=".controller.EditCurso"/>
+		<activity android:name=".controller.CertificadosController"/>
+		<activity android:name=".controller.BadJokeController"/>
 
 	</application>
 

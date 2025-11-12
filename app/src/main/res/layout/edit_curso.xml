@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F5F5">
+												   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +25,6 @@
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="Editar Curso"
                 android:textColor="#333333"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -37,128 +35,126 @@
 					android:layout_gravity="center"
 					android:layout_marginBottom="16dp"
 					android:background="#E0E0E0"
-					android:scaleType="centerCrop"
-					android:contentDescription="Imagen del curso"/>
+					android:contentDescription="@string/actualizar" android:scaleType="centerCrop"/>
 
 			<LinearLayout android:layout_width="386dp" android:layout_height="wrap_content">
 
 
 				<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-						  android:text="Activo"
+						  android:text=""
 				/>
 				<Switch
 						android:id="@+id/stch_activo"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						/>
+						tools:ignore="UseSwitchCompatOrMaterialXml"/>
 
 			</LinearLayout>
 
 
 
             <EditText
-                android:id="@+id/edit_nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nombre del Curso"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_nombre"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:inputType="text" android:textSize="20sp"
+					android:textStyle="bold"
+					android:textColor="#333333"
+					android:layout_marginBottom="8dp"
+					android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+					android:padding="12dp"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <EditText
-                android:id="@+id/edit_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descripción del curso"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_descripcion"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:inputType="text" android:textSize="14sp"
+					android:textColor="#666666"
+					android:layout_marginBottom="8dp"
+					android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+					android:padding="12dp"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <EditText
-                android:id="@+id/edit_dirigidoa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dirigido a: Estudiantes"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_dirigidoa"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:inputType="text" android:textSize="14sp"
+					android:textColor="#666666"
+					android:layout_marginBottom="8dp"
+					android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+					android:padding="12dp"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <EditText
-                android:id="@+id/edit_modalidad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Modalidad: Presencial"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_modalidad"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:inputType="text" android:textSize="14sp"
+					android:textColor="#666666"
+					android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+					android:layout_marginBottom="8dp"
+					android:padding="12dp"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <EditText
-                android:id="@+id/edit_horas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Duración: 40 horas"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:inputType="number"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_horas"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:textSize="14sp"
+					android:textColor="#666666"
+					android:digits="1234567890"
+					android:layout_marginBottom="8dp"
+					android:padding="12dp"
+					android:inputType="number"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <EditText
-                android:id="@+id/edit_precio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Precio: $200"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"
-                android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:inputType="number"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_precio"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:textSize="16sp"
+					android:textStyle="bold"
+					android:textColor="#4CAF50"
+					android:layout_marginBottom="24dp"
+					android:padding="12dp"
+					android:inputType="number"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
             <EditText
-                android:id="@+id/edit_link"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Precio: $200"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"
-                android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:background="#FFFFFF" />
+					android:id="@+id/edit_link"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="" android:inputType="text" android:textSize="16sp"
+					android:textStyle="bold"
+					android:textColor="#4CAF50"
+					android:digits="/qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+					android:layout_marginBottom="24dp"
+					android:padding="12dp"
+					android:background="#FFFFFF" tools:ignore="LabelFor"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+					style="?android:attr/buttonBarStyle" android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_actualizar_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="Actualizar"
-                    android:textColor="#FFFFFF"
-                    android:background="@android:color/black" />
+				<Button
+						android:id="@+id/btn_actualizar_edit"
+						style="?android:attr/buttonBarButtonStyle" android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:layout_marginEnd="8dp"
+						android:text="@string/actualizar"
+						android:textColor="#FFFFFF"
+						android:background="@android:color/black"/>
 
-                <Button
-                    android:id="@+id/btn_cancelar_edit"
-                    android:layout_width="0dp"
+				<Button
+						android:id="@+id/btn_cancelar_edit"
+						style="?android:attr/buttonBarButtonStyle" android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    android:text="Cancelar"
+                    android:text="@string/cancelar"
                     android:textColor="#FFFFFF"
                     android:background="@android:color/black" />
 

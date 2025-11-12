@@ -1,3 +1,11 @@
 <resources>
 	<string name="app_name">New_TSI_Moviles</string>
+	<string name="alfabeto">qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890</string>
+	<string name="actualizar">Actualizar</string>
+	<string name="cancelar">Cancelar</string>
+	<string name="EN_joke">Aqui Va el Chiste en ingles</string>
+	<string name="punchLine">Aqui el remate</string>
+	<string name="ES_Joke">Aqui Va el Chiste en español (si consiges api translate)</string>
+	<string name="remate">Aqui el remate</string>
+	<string name="ver_remate">Ver Remate</string>
 </resources>

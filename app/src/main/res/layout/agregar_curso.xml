@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
 
 >
 
@@ -31,7 +30,7 @@
                 android:gravity="center"
                 android:layout_marginBottom="24dp"
                 android:padding="16dp"
-                android:background="#FFFFFF" />
+			/>
 
             <EditText
                 android:id="@+id/nombreCurso"
@@ -40,7 +39,7 @@
                 android:hint="Ingrese Nombre del Curso"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -50,8 +49,8 @@
                 android:hint="Ingrese descripción"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
                 android:inputType="textMultiLine"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:lines="3" />
 
             <EditText
@@ -61,7 +60,7 @@
                 android:hint="Dirigido A"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -71,7 +70,7 @@
                 android:hint="Modalidad (Presencial, Virtual, Híbrida)"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -81,7 +80,7 @@
                 android:hint="Duración Horas"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
+				android:digits="1234567890"
                 android:inputType="number" />
 
             <EditText
@@ -91,8 +90,8 @@
                 android:hint="Precio"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
-                android:inputType="numberDecimal" />
+				android:digits="1234567890"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/link"
@@ -101,7 +100,7 @@
                 android:hint="Link de inscripción"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
-                android:background="#FFFFFF"
+				android:digits="/:qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="textUri" />
 
             <LinearLayout
@@ -116,8 +115,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
                     android:text="Cancelar"
-                    android:textColor="#FFFFFF"
-                    android:background="#E0E0E0" />
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btn_guardar"
@@ -126,8 +124,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:text="Guardar"
-                    android:textColor="#FFFFFF"
-                    android:background="#4CAF50" />
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 

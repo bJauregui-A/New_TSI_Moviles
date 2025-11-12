@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ListViewCompat;
 import com.example.new_tsi_moviles.R;
 import com.example.new_tsi_moviles.adapter.CursoAdapter;
 import com.example.new_tsi_moviles.conexion.CursosCallback;
@@ -41,7 +42,6 @@ public class CursoController extends AppCompatActivity {
         cursoService = new CursoService(this);
         listView = findViewById(R.id.lista_cursos);
 
-        // Crear adapter una sola vez
         cursoAdapter = new CursoAdapter(ctx, cursosLocal,0);
         listView.setAdapter(cursoAdapter);
 
@@ -64,7 +64,7 @@ public class CursoController extends AppCompatActivity {
 
     private void actualizarLista() {
         String ruta = switch1.isChecked() ? "/all" : "/allA";
-        if (!buscar.getText().toString().equals("") && !buscar.getText().toString().equals("")) {
+        if (!buscar.getText().toString().equals("") && !buscar.getText().toString().isEmpty()) {
             ruta += "/"+buscar.getText().toString();
         }
 
@@ -81,6 +81,16 @@ public class CursoController extends AppCompatActivity {
                 e.printStackTrace();
             }
         }, ruta);
+
+        Integer num =0;
+        cursosLocal.stream().forEach(curso -> {
+            if (!curso.getActivo()){
+                listView.getItemAtPosition(num);
+            }
+
+        });
+
+
     }
 
     @Override

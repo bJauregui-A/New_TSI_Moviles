@@ -14,7 +14,7 @@ import java.util.List;
 public class CursoService {
 
     private CursoConexion cursoConexion;
-private List<CursoDTO> cursosLocal;
+    private List<CursoDTO> cursosLocal;
     public CursoService(Context context) {
         cursoConexion = new CursoConexion(context);
     }

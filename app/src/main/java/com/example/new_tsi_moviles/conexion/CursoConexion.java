@@ -2,6 +2,7 @@ package com.example.new_tsi_moviles.conexion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -55,6 +56,7 @@ public class CursoConexion {
                                     .modalidad(cursoJson.getString("modalidad"))
                                     .nombre(cursoJson.getString("nombre"))
                                     .precio(cursoJson.getInt("precio"))
+                                            .activo(cursoJson.getBoolean("activo"))
                                     .build());
                         }
                         callback.onSuccess(cursos);
@@ -204,38 +206,51 @@ public class CursoConexion {
 
     public void deleteCurso(MensajeCallback callback,Long id) {
 
-        RequestQueue queue = Volley.newRequestQueue(this.context);
 
-        Request<String> request = new Request<String>(
-                Request.Method.DELETE,
-                url + "/delete/"+id.toString(), // La URL final se construye aquí
-                null
-        ) {
-
+        getCurso(new CursoCallback() {
             @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                if (strinToken != null && !strinToken.isEmpty()) {
-                    // --- SOLUCIÓN ---
-                    // Usar la variable 'strinToken' que contiene el JWT real.
-                    headers.put("Authorization", "Bearer " + strinToken);
-                }
-                return headers;
-            }
+            public void onSuccess(CursoDTO curso) {
+                RequestQueue queue = Volley.newRequestQueue(context);
 
+                Request<String> request = new Request<String>(
+                        Request.Method.DELETE,
+                        url + "/delete/"+id.toString(), // La URL final se construye aquí
+                        null
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        if (strinToken != null && !strinToken.isEmpty()) {
+                            // --- SOLUCIÓN ---
+                            // Usar la variable 'strinToken' que contiene el JWT real.
+                            headers.put("Authorization", "Bearer " + strinToken);
+                        }
+                        return headers;
+                    }
+
+                    @Override
+                    protected Response parseNetworkResponse(NetworkResponse networkResponse) {
+                        return Response.success("Curso Eliminado", null);
+                    }
+
+                    @Override
+                    protected void deliverResponse(String response) {
+                        callback.onSuccess(response);
+
+                    }
+                };
+
+                queue.add(request);
+            }
             @Override
-            protected Response parseNetworkResponse(NetworkResponse networkResponse) {
-                return Response.success("Curso Eliminado", null);
+            public void onError(Exception e) {
+                Toast.makeText(context, "EL curso ya fue eliminado anteriormente", Toast.LENGTH_LONG).show();
             }
+        },id);
 
-            @Override
-            protected void deliverResponse(String response) {
-                callback.onSuccess(response);
 
-            }
-        };
 
-        queue.add(request);
     }
 
 }

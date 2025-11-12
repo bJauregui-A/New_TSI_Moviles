@@ -60,9 +60,9 @@ cursoService= new CursoService(this);
 
                                           @Override
                                           public void onError(Exception e) {
-                                              Toast.makeText(EditCurso.this, "Falló", Toast.LENGTH_SHORT).show();
-
+                                              Toast.makeText(EditCurso.this, "Error al encontrar curso", Toast.LENGTH_SHORT).show();
                                           }
+
                                       }
                 ,getIntent().getLongExtra("curso_id",-1L));
 
@@ -96,17 +96,15 @@ cursoService= new CursoService(this);
                         cursoService.updateCursos(new CursoCallback() {
                             @Override
                             public void onSuccess(CursoDTO curso) {
-
-
+                                Toast.makeText(EditCurso.this, "Actualizado", Toast.LENGTH_SHORT).show();
                             }
-
                             @Override
                             public void onError(Exception e) {
-
+                                Toast.makeText(EditCurso.this, "Curso no existe", Toast.LENGTH_SHORT).show();
                             }
                         }, json);
 
-                        Toast.makeText(this, "Actualizado", Toast.LENGTH_SHORT).show();
+
                         finish();
                     })
                     .setNegativeButton("No", null)

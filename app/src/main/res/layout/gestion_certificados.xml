@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vea nuestros Cursos"
+            android:text="Gestión de Certificados"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#333333"
@@ -30,7 +30,7 @@
             android:id="@+id/text_buscar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Buscar curso..."
+            android:hint="Buscar certificado..."
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:background="#FFFFFF" />
@@ -41,11 +41,25 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
 
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Agregar"
+                android:textColor="#FFFFFF"
+                android:background="#4CAF50" />
+
+
+
+
+
 
         </LinearLayout>
 
         <ListView
-            android:id="@+id/lista_cursos"
+            android:id="@+id/lista_certificados"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

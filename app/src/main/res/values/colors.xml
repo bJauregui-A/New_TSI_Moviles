@@ -2,4 +2,16 @@
 <resources>
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
+		<!-- Fondo y superficies -->
+		<color name="dark_background">#121212</color>
+		<color name="dark_surface">#1E1E1E</color>
+
+		<!-- Colores principales -->
+		<color name="dark_primary">#20093b</color> <!-- violeta tenue -->
+		<color name="dark_secondary">#196961</color> <!-- turquesa -->
+		<color name="dark_tertiary">#45278a</color>
+
+		<!-- Textos -->
+		<color name="gray_light">#B0B0B0</color>
+
 </resources>

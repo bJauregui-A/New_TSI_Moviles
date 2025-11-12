@@ -4,7 +4,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		xmlns:tools="http://schemas.android.com/tools"
-		android:background="#F5F5F5"
 		tools:context=".controller.Principal">
 
 
@@ -16,7 +15,7 @@
 			android:gravity="center"
 			android:foregroundGravity="center"
 
-	>
+			tools:ignore="MissingConstraints">
 		<Button
 				android:id="@+id/btn_cursos"
 				android:layout_width="300dp"
@@ -41,6 +40,12 @@
 				android:layout_width="300dp"
 				android:layout_height="wrap_content"
 				android:text="Perfil"
+		/>
+		<Button
+				android:id="@+id/bad_joke"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:text="Chiste"
 		/>
 
 

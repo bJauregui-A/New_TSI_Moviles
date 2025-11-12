@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.main);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
 
         EditText email = findViewById(R.id.email);
         EditText ipTxt = findViewById(R.id.ip);
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnDiez.setOnClickListener(v -> {
-            ipTxt.setText("10.33.98.179");
+            ipTxt.setText("10.33.114.227");
 
         });
 

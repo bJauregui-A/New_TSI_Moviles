@@ -4,16 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Debug;
 import android.util.Log;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
+import android.widget.Toast;
+import com.android.volley.*;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import com.example.new_tsi_moviles.dto.InscripcionDTO;
+import com.example.new_tsi_moviles.model.CursoUserState;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.xml.transform.ErrorListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,30 +81,29 @@ String ip,strinToken,url;
 
     public void crearInscripcion(MensajeCallback  callback, JSONObject inscripcion ){
         RequestQueue queue = Volley.newRequestQueue(this.context);
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST,
-                url+"/create",
-                inscripcion,
-                response -> {
-                    try {
-                        callback.onSuccess("Curso creado");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                },
-                error -> {
-                   Log.d("Error", error.getMessage());
-                    callback.onError(error);
-                }
-        ){
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                if (strinToken != null && !strinToken.isEmpty()) {
 
-                    headers.put("Authorization", "Bearer " + strinToken);
-                }
-                headers.put("Content-Type", "application/json");
+        StringRequest request = new StringRequest(Request.Method.POST, url+"/create", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onError(error);
+                Toast.makeText(context,"aaaa", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return inscripcion.toString().getBytes();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type","application/json");
+                headers.put("Authorization", "Bearer " + strinToken);
                 return headers;
             }
         };
@@ -108,7 +111,7 @@ String ip,strinToken,url;
         queue.add(request);
     }
 
-    public void getInscripcion(CursoCallback callback,Long id) {
+    public void getInscripcion(InscripcionCallback callback,Long id) {
 
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
@@ -121,19 +124,16 @@ String ip,strinToken,url;
                     try {
 
                         JSONObject cursoJson = response;
-                        CursoDTO curso = CursoDTO.builder()
-                                .id(cursoJson.getLong("id"))
-                                .activo(cursoJson.getBoolean("activo"))
-                                .descripcion(cursoJson.getString("descripcion"))
-                                .horas(cursoJson.getInt("horas"))
-                                .dirigidoa(cursoJson.getString("dirigidoa"))
-                                .linkPago(cursoJson.getString("linkPago"))
-                                .modalidad(cursoJson.getString("modalidad"))
-                                .nombre(cursoJson.getString("nombre"))
-                                .precio(cursoJson.getInt("precio"))
+                        InscripcionDTO inscripcionDTO = InscripcionDTO.builder()
+                                .estado(CursoUserState.valueOf( cursoJson.getString("estado")))
+                                .idCurso(cursoJson.getLong("idCurso"))
+                                .idUser(cursoJson.getLong("idUser"))
+                                .emailUser(cursoJson.getString("emailUser"))
+                                .nombreUser(cursoJson.getString("nombreUser"))
+                                .nombreCurso(cursoJson.getString("nombreCurso"))
                                 .build();
 
-                        callback.onSuccess(curso);
+                        callback.onSuccess(inscripcionDTO);
                     } catch (JSONException e) {
                         callback.onError(e);
                     }
@@ -155,4 +155,137 @@ String ip,strinToken,url;
         queue.add(request);
     }
 
+    public void getInscripcionByCurso(InscripcionCallback callback,Long id) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                url + "/curso/"+id.toString(), // La URL final se construye aquí
+                null,
+                response -> {
+
+                    try {
+
+                        JSONObject cursoJson = response;
+                        InscripcionDTO inscripcionDTO = InscripcionDTO.builder()
+                                .estado(CursoUserState.valueOf( cursoJson.getString("estado")))
+                                .idCurso(cursoJson.getLong("idCurso"))
+                                .idUser(cursoJson.getLong("idUser"))
+                                .emailUser(cursoJson.getString("emailUser"))
+                                .nombreUser(cursoJson.getString("nombreUser"))
+                                .nombreCurso(cursoJson.getString("nombreCurso"))
+                                .build();
+
+                        callback.onSuccess(inscripcionDTO);
+                    } catch (JSONException e) {
+                        callback.onError(e);
+                    }
+                },
+                error -> callback.onError(error)
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
+
+    public void getInscripcionByUser(InscripcionesCallback callback,Long id) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                url + "/user/"+id.toString(), // La URL final se construye aquí
+                null,
+                response -> {
+                    List<InscripcionDTO> cursos = new ArrayList<>();
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject cursoJson = response.getJSONObject(i);
+                            cursos.add(InscripcionDTO.builder()
+                                            .nombreCurso(cursoJson.getString("nombreCurso"))
+                                            .idUser(cursoJson.getLong("idUser"))
+                                            .idCurso(cursoJson.getLong("idCurso"))
+                                    .emailUser(cursoJson.getString("emailUser"))
+                                    .nombreUser(cursoJson.getString("nombreUser"))
+                                            .estado(CursoUserState.valueOf(cursoJson.getString("estado")))
+                                    .build());
+                        }
+                        callback.onSuccess(cursos);
+                    } catch (JSONException e) {
+                        callback.onError(e);
+                    }
+                },
+                error -> callback.onError(error)
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+        };
+
+
+
+
+        queue.add(request);
+    }
+
+    public void getAll(InscripcionesCallback callback) {
+
+        RequestQueue queue = Volley.newRequestQueue(this.context);
+
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                url + "/all",
+                null,
+                response -> {
+                    List<InscripcionDTO> cursos = new ArrayList<>();
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject cursoJson = response.getJSONObject(i);
+                            cursos.add(InscripcionDTO.builder()
+                                    .nombreCurso(cursoJson.getString("nombreCurso"))
+                                    .idUser(cursoJson.getLong("idUser"))
+                                    .idCurso(cursoJson.getLong("idCurso"))
+                                    .emailUser(cursoJson.getString("emailUser"))
+                                    .nombreUser(cursoJson.getString("nombreUser"))
+                                    .estado(CursoUserState.valueOf(cursoJson.getString("estado")))
+                                    .build());
+                        }
+                        callback.onSuccess(cursos);
+                    } catch (JSONException e) {
+                        callback.onError(e);
+                    }
+                },
+                error -> callback.onError(error)
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+        };
+
+        queue.add(request);
+    }
 }

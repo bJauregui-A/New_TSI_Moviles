@@ -18,6 +18,10 @@ public class InscripcionDTO {
     @NotNull
     private Long idCurso;
 
+    private String nombreCurso;
+    private String nombreUser;
+    private String emailUser;
+
 
     private CursoUserState estado;
 }
