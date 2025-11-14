@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import org.json.JSONException;
@@ -278,6 +279,29 @@ public class CursoConexion {
 
 
 
+    }
+
+    public void lotiene(ConexionCallback callback,Long id,Long idu) {
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url+"/lotiene/"+id.toString()+"/"+idu.toString(),
+                response -> {
+                    callback.onSuccess(Boolean.parseBoolean(response.trim()));
+                },
+                error -> {
+                    Log.e("Error", error.getMessage());
+                }
+        );
+
+        Volley.newRequestQueue(context).add(request);
+
+
+        queue.add(request);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.new_tsi_moviles.controller;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -68,6 +69,7 @@ public class PerfilController extends AppCompatActivity {
             }
             @Override
             public void onError(Exception e) {
+                Log.e("Error", e.getMessage());
             }
         });
 

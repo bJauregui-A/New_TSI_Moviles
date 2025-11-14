@@ -3,6 +3,7 @@ package com.example.new_tsi_moviles.controller;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.R;
+import com.example.new_tsi_moviles.conexion.ConexionCallback;
 import com.example.new_tsi_moviles.conexion.CursoCallback;
 import com.example.new_tsi_moviles.conexion.MensajeCallback;
 import com.example.new_tsi_moviles.conexion.PerfilCallback;
@@ -54,7 +56,7 @@ public class VistaCursoUser extends AppCompatActivity {
         comprar = findViewById(R.id.btn_comprar_vista);
         cancelar = findViewById(R.id.btn_cancelar_vista);
         inactivo = findViewById(R.id.inactivo);
-
+        comprar.setVisibility(View.GONE);
         perfilService = new PerfilService(this);
         inscripcionService = new InscripcionService(this);
         JSONObject compra = new JSONObject();
@@ -71,7 +73,7 @@ public class VistaCursoUser extends AppCompatActivity {
             @Override
             public void onSuccess(UserDTO userDTO2) {
              userDTO=userDTO2;
-
+             actualizar();
             }
 
             @Override
@@ -130,6 +132,22 @@ public class VistaCursoUser extends AppCompatActivity {
                     inactivo.setText("Inactivo");
                 }
 
+                cursoService.lotiene(new ConexionCallback() {
+                    @Override
+                    public void onSuccess(Boolean res) {
+
+                        if(res){
+
+                        }else{
+                            comprar.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                },curso.getId(),userDTO.getId());
 
             }
             @Override
@@ -140,9 +158,5 @@ public class VistaCursoUser extends AppCompatActivity {
 
 
     }
-    protected void onResume(){
 
-        super.onResume();
-        actualizar();
-    }
 }

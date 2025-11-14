@@ -2,10 +2,7 @@ package com.example.new_tsi_moviles.service;
 
 import android.content.Context;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.new_tsi_moviles.conexion.CursoCallback;
-import com.example.new_tsi_moviles.conexion.CursosCallback;
-import com.example.new_tsi_moviles.conexion.CursoConexion;
-import com.example.new_tsi_moviles.conexion.MensajeCallback;
+import com.example.new_tsi_moviles.conexion.*;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import org.json.JSONObject;
 
@@ -40,5 +37,7 @@ public void createCurso(MensajeCallback callback, JSONObject cursoJson){
         cursoConexion.activarCurso( cursoCallback, id);
     }
 
-
+    public void lotiene(ConexionCallback callback,Long id, Long idu){
+        cursoConexion.lotiene( callback, id, idu);
+    }
 }

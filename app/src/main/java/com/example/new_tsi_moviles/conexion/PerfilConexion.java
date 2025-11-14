@@ -40,7 +40,8 @@ public void getPerfil(PerfilCallback perfilCallback){
                 UserDTO userDTO = new UserDTO();
                 try {
                     Log.d("UserRecibido: ",response.toString());
-                    JSONArray rolesJSON = new JSONArray(response.getJSONArray("roles"));
+                    JSONArray rolesJSON = response.getJSONArray("roles");
+
                     Set<String> rolesSet = new HashSet<>();
                     for (int i = 0; i < rolesJSON.length(); i++) {
                         rolesSet.add(rolesJSON.getString(i));
