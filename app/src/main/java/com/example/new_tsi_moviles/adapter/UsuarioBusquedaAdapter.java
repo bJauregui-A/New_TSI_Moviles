@@ -1,5 +1,6 @@
 package com.example.new_tsi_moviles.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class UsuarioBusquedaAdapter extends RecyclerView.Adapter<UsuarioBusqueda
     private List<UserDTO> listaOriginal;
     private List<UserDTO> listaFiltrada;
     private final OnItemClickListener listener;
+    private int selectedPosition = -1; // 🔹 posición seleccionada
 
     public interface OnItemClickListener {
         void onItemClick(UserDTO user);
@@ -45,7 +47,18 @@ public class UsuarioBusquedaAdapter extends RecyclerView.Adapter<UsuarioBusqueda
         holder.txtNombre.setText(user.getNombre());
         holder.txtEmail.setText(user.getEmail());
 
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(user));
+        // 🔹 cambiar fondo si está seleccionado
+        if (position == selectedPosition) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#E1BEE7")); // morado claro
+        } else {
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = position;
+            notifyDataSetChanged(); // refresca para aplicar fondo
+            listener.onItemClick(user);
+        });
     }
 
     @Override
@@ -76,5 +89,11 @@ public class UsuarioBusquedaAdapter extends RecyclerView.Adapter<UsuarioBusqueda
             txtNombre = itemView.findViewById(R.id.txtUsuarioNombre);
             txtEmail = itemView.findViewById(R.id.txtUsuarioEmail);
         }
+    }
+
+    // 🔹 Método opcional para limpiar selección
+    public void clearSelection() {
+        selectedPosition = -1;
+        notifyDataSetChanged();
     }
 }

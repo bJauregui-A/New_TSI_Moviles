@@ -3,6 +3,7 @@ package com.example.new_tsi_moviles.service;
 import android.content.Context;
 import com.example.new_tsi_moviles.adapter.CursoAdapter;
 import com.example.new_tsi_moviles.conexion.*;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class InscripcionService {
@@ -18,7 +19,7 @@ public void getByUser(InscripcionesCallback inscripcionCallback, Long id){
 }
 
 
-    public void comprar(MensajeCallback callback, JSONObject cursoJson) {
+    public void comprar(MensajeCallback callback, JSONObject cursoJson) throws JSONException {
         inscripcionConexion.crearInscripcion(callback, cursoJson);
     }
 

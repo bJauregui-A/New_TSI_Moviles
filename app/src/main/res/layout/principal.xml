@@ -48,6 +48,12 @@
 				android:text="Cursos user"
 		/>
 		<Button
+				android:id="@+id/btn_users"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:text="Gestion de Usuarios"
+		/>
+		<Button
 				android:id="@+id/btn_perfil"
 				android:layout_width="300dp"
 				android:layout_height="wrap_content"

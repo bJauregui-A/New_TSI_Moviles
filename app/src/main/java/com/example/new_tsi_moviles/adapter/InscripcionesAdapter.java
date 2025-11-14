@@ -69,6 +69,7 @@ public class InscripcionesAdapter extends BaseAdapter {
 
         InscripcionDTO curso = inscripciones.get(position);
 
+        holder.btnVer.setVisibility(View.INVISIBLE);
         holder.btnVer.setText("Ver");
         holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
 
@@ -78,7 +79,7 @@ public class InscripcionesAdapter extends BaseAdapter {
         holder.precio.setText(curso.getEstado().toString());
         holder.btnVer.setOnClickListener(v -> {
             Intent intent = new Intent(context, VistaCursoUser.class);
-            intent.putExtra("inscripcion_id", curso.getIdCurso());
+            intent.putExtra("curso_id", curso.getIdCurso());
             context.startActivity(intent);
         });
 

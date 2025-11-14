@@ -2,6 +2,7 @@ package com.example.new_tsi_moviles.conexion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -76,9 +77,16 @@ String ip,strinToken,url;
         queue.add(request);
     }
 
-    public void crearInscripcion(MensajeCallback  callback, JSONObject inscripcion ){
+    public void crearInscripcion(MensajeCallback  callback, JSONObject inscripcion ) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
+        inscripcion.put("id",0);
+        inscripcion.put("nombreCurso","a");
+        inscripcion.put("nombreUser","a");
+        inscripcion.put("emailUser","a");
+        inscripcion.put("activo",true);
+        inscripcion.put("estado","ELIMINADO");
+        Log.e("InscripcionConexion", inscripcion.toString());
         StringRequest request = new StringRequest(Request.Method.POST, url+"/create", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -289,4 +297,6 @@ String ip,strinToken,url;
 
         queue.add(request);
     }
+
+
 }

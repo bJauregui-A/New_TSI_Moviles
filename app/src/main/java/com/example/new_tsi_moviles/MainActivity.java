@@ -14,7 +14,9 @@ import com.android.volley.*;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.new_tsi_moviles.controller.CreateUserController;
 import com.example.new_tsi_moviles.controller.Principal;
+import com.example.new_tsi_moviles.controller.UsuarioController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +26,8 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     EditText ipTxt, email,password;
-    Button btnContinuar,btnUno,btnDiez, btnText;
+    Boolean puedes;
+    Button btnContinuar,btnUno,btnDiez, btnTest,registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
 
-        EditText email = findViewById(R.id.email);
-        EditText ipTxt = findViewById(R.id.ip);
-        EditText password = findViewById(R.id.password);
-        Button btnContinuar = findViewById(R.id.btn_continuar);
-        Button btnUno = findViewById(R.id.btn_uno);
-        Button btnDiez = findViewById(R.id.btn_diez);
-        Button btnTest = findViewById(R.id.btn_test);
-
+         email = findViewById(R.id.email);
+         ipTxt = findViewById(R.id.ip);
+         password = findViewById(R.id.password);
+         btnContinuar = findViewById(R.id.btn_continuar);
+         btnUno = findViewById(R.id.btn_uno);
+         btnDiez = findViewById(R.id.btn_diez);
+         btnTest = findViewById(R.id.btn_test);
+        registro = findViewById(R.id.btn_registro);
+puedes=false;
 
         btnUno.setOnClickListener(v -> {
             ipTxt.setText("192.168.1.105");
@@ -51,30 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        btnTest.setOnClickListener(v -> {
-            String ip = ipTxt.getText().toString();
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="http://"+ip+":8080/test";
+        registro.setOnClickListener(v -> {
+            test();
+            if(puedes){
+                Intent intent = new Intent(this, CreateUserController.class);
+                startActivity(intent);
+            }
+        });
 
-            StringRequest request = new StringRequest(
-                    Request.Method.GET,
-                    url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // Aquí manejas la respuesta del servidor
-                            Toast.makeText(MainActivity.this, "Respuesta: " + response, Toast.LENGTH_SHORT).show();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // Aquí manejas el error
-                            Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-            );
-            queue.add(request);
+        btnTest.setOnClickListener(v -> {
+            test();
         });
 
         btnContinuar.setOnClickListener(v -> {
@@ -123,6 +113,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+private void test(){
+    String ip = ipTxt.getText().toString();
+    RequestQueue queue = Volley.newRequestQueue(this);
+    String url ="http://"+ip+":8080/test";
 
+    StringRequest request = new StringRequest(
+            Request.Method.GET,
+            url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // Aquí manejas la respuesta del servidor
+                    puedes=true;
+                    Toast.makeText(MainActivity.this, "Respuesta: " + response, Toast.LENGTH_SHORT).show();
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Aquí manejas el error
+                    Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+    );
+    queue.add(request);
+}
 
 }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="16dp">
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="24dp"
+			android:elevation="4dp"
+			android:clipToPadding="false"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="16dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:orientation="vertical"
+			android:gravity="center_horizontal"
+			android:layout_gravity="center_horizontal"
+			android:clipToOutline="true">
+
+		<TextView
+				android:text="Editar Usuario"
+				android:textSize="22sp"
+				android:textStyle="bold"
+				android:textColor="#000"
+				android:paddingHorizontal="20dp"
+				android:paddingVertical="5dp"
+				android:background="@color/cardview_dark_background"
+				android:layout_marginBottom="24dp"  android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+
+		<EditText
+				android:id="@+id/edtNombre"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Nombre"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM"
+				android:padding="12dp"
+				android:layout_marginBottom="12dp" />
+
+		<EditText
+				android:id="@+id/edtApellido"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM"
+				android:hint="Apellido"
+				android:padding="12dp"
+				android:layout_marginBottom="12dp" />
+
+		<EditText
+				android:id="@+id/edtEmail"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Email"
+				android:digits="q@wertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM"
+				android:inputType="textEmailAddress"
+				android:padding="12dp"
+				android:layout_marginBottom="12dp" />
+
+		<EditText
+				android:id="@+id/edtRoles"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Roles (separados por coma)"
+				android:digits="ESTUDIANMG,"
+				android:padding="12dp"
+				android:layout_marginBottom="24dp" />
+
+		<LinearLayout
+
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+			<TextView
+					android:text="Activo"
+					android:layout_width="wrap_content"
+					android:textSize="20sp"
+					android:textStyle="bold"
+					android:textColor="#000"
+					android:paddingHorizontal="20dp"
+					android:paddingVertical="5dp"
+					android:background="@color/cardview_dark_background"
+					android:layout_height="wrap_content"/>
+
+			<Switch
+					android:id="@+id/stch_active"
+					android:layout_marginLeft="30dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+		</LinearLayout>
+
+
+		<Button
+				android:id="@+id/btnGuardar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Guardar"
+				android:textColor="#FFFFFF"
+				android:padding="12dp" />
+
+	</LinearLayout>
+</ScrollView>

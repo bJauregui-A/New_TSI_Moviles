@@ -97,17 +97,21 @@ public class VistaCursoUser extends AppCompatActivity {
                     .setTitle("Confirmar compra")
                     .setMessage("¿Está seguro que desea comprar este curso?")
                     .setPositiveButton("Sí", (dialog, which) -> {
-                        inscripcionService.comprar(new MensajeCallback() {
-                            @Override
-                            public void onSuccess(String mensaje) {
-                                Toast.makeText(ctx, "Curso Comprado", Toast.LENGTH_SHORT).show();
-                            }
+                        try {
+                            inscripcionService.comprar(new MensajeCallback() {
+                                @Override
+                                public void onSuccess(String mensaje) {
+                                    Toast.makeText(ctx, "Curso Comprado", Toast.LENGTH_SHORT).show();
+                                }
 
-                            @Override
-                            public void onError(Exception e) {
+                                @Override
+                                public void onError(Exception e) {
 
-                            }
-                        },compra);
+                                }
+                            },compra);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         finish();
                     })

@@ -22,7 +22,7 @@ public void createCurso(MensajeCallback callback, JSONObject cursoJson){
 }
 
     public void updateCursos(MensajeCallback cursoCallback, JSONObject cursoJson) {
-        cursoConexion.updateCurso( cursoCallback, cursoJson);
+        cursoConexion.updateCurso(  cursoJson,cursoCallback);
     }
     public void getCursos(CursosCallback cursoCallback, String ruta) {
         cursoConexion.getCursos( cursoCallback, ruta);

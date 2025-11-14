@@ -16,7 +16,7 @@ import com.example.new_tsi_moviles.service.PerfilService;
 
 public class Principal extends AppCompatActivity {
 
-    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser,btn_Joke;
+    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser,btn_Joke,btn_users;
     PerfilService perfilService;
 
     @Override
@@ -29,6 +29,7 @@ public class Principal extends AppCompatActivity {
         bntnCertificados = findViewById(R.id.btn_certificados);
         btn_cursosUser = findViewById(R.id.btn_cursos_user);
         btn_Joke = findViewById(R.id.bad_joke);
+        btn_users = findViewById(R.id.btn_users);
         perfilService = new PerfilService(this);
 
         btnCursos.setOnClickListener(v -> {
@@ -54,6 +55,10 @@ public class Principal extends AppCompatActivity {
             Intent intent = new Intent(this, BadJokeController.class);
             startActivity(intent);
         });
+        btn_users.setOnClickListener(v -> {
+            Intent intent = new Intent(this, UsuarioController.class);
+            startActivity(intent);
+        });
 
         perfilService.getPerfil(new PerfilCallback() {
             @Override
@@ -72,9 +77,11 @@ public class Principal extends AppCompatActivity {
                 if (esAdmin) {
                     btnCursos.setVisibility(View.VISIBLE);
                     bntnCertificados.setVisibility(View.VISIBLE);
+                    btn_users.setVisibility(View.VISIBLE);
                 } else {
                     btnCursos.setVisibility(View.GONE);
                     bntnCertificados.setVisibility(View.GONE);
+                    btn_users.setVisibility(View.GONE);
                 }
             }
 

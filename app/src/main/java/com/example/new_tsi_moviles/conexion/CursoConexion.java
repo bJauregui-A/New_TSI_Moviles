@@ -83,7 +83,7 @@ public class CursoConexion {
         queue.add(request);
     }
 
-    public void updateCurso(MensajeCallback callback,JSONObject cursoJson) {
+    public void updateCurso(JSONObject cursoJson,MensajeCallback callback) {
 
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
@@ -294,9 +294,21 @@ public class CursoConexion {
                     callback.onSuccess(Boolean.parseBoolean(response.trim()));
                 },
                 error -> {
-                    Log.e("Error", error.getMessage());
+
                 }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                if (strinToken != null && !strinToken.isEmpty()) {
+                    // --- SOLUCIÓN ---
+                    // Usar la variable 'strinToken' que contiene el JWT real.
+                    headers.put("Authorization", "Bearer " + strinToken);
+                }
+                return headers;
+            }
+        };
+
 
         Volley.newRequestQueue(context).add(request);
 

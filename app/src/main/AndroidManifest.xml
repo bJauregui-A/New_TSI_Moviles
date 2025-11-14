@@ -32,7 +32,9 @@
 		<activity android:name=".controller.EditCurso"/>
 		<activity android:name=".controller.CertificadosController"/>
 		<activity android:name=".controller.BadJokeController"/>
-		<activity android:name=".controller.FiltroInscripcionController"/>
+		<activity android:name=".controller.UsuarioController"/>
+		<activity android:name=".controller.EditUserController"/>
+		<activity android:name=".controller.CreateUserController"/>
 
 	</application>
 

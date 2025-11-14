@@ -1,6 +1,6 @@
 package com.example.new_tsi_moviles.adapter;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ public class CursoBusquedaAdapter extends RecyclerView.Adapter<CursoBusquedaAdap
     private List<CursoDTO> listaOriginal;
     private List<CursoDTO> listaFiltrada;
     private final OnItemClickListener listener;
+    private int selectedPosition = -1; // 🔹 posición seleccionada
 
     public interface OnItemClickListener {
         void onItemClick(CursoDTO curso);
@@ -45,7 +46,18 @@ public class CursoBusquedaAdapter extends RecyclerView.Adapter<CursoBusquedaAdap
         holder.txtNombre.setText(curso.getNombre());
         holder.txtDescripcion.setText(curso.getDescripcion());
 
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(curso));
+        // 🔹 cambiar fondo si está seleccionado
+        if (position == selectedPosition) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#E1BEE7")); // morado claro
+        } else {
+            holder.itemView.setBackgroundColor(Color.WHITE);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = position;
+            notifyDataSetChanged(); // refresca para aplicar fondo
+            listener.onItemClick(curso);
+        });
     }
 
     @Override
@@ -76,5 +88,10 @@ public class CursoBusquedaAdapter extends RecyclerView.Adapter<CursoBusquedaAdap
             txtNombre = itemView.findViewById(R.id.txtCursoNombre);
             txtDescripcion = itemView.findViewById(R.id.txtCursoDescripcion);
         }
+    }
+
+    public void clearSelection() {
+        selectedPosition = -1;
+        notifyDataSetChanged();
     }
 }

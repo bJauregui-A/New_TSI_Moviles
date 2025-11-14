@@ -3,7 +3,10 @@ package com.example.new_tsi_moviles.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.*;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.R;
 import com.example.new_tsi_moviles.adapter.InscripcionesAdapter;
@@ -22,6 +25,7 @@ public class CertificadosController extends AppCompatActivity {
     private Context ctx;
     private ListView listView;
     private UserDTO userDTO;
+    private ActivityResultLauncher<Intent> filtroLauncher;
     private PerfilService perfilService;
     private List<InscripcionDTO> cursosLocal;
     private InscripcionService cursoService;
@@ -57,12 +61,10 @@ public class CertificadosController extends AppCompatActivity {
             }
         });
 
+        //btn_agregar.setVisibility(View.INVISIBLE);
+        //btn_filtro.setVisibility(View.INVISIBLE);
         btn_agregar.setOnClickListener(v -> {
             startActivity(new Intent(ctx, CrearCursoController.class));
-        });
-        btn_filtro.setOnClickListener(v -> {
-            Intent intent = new Intent(ctx, FiltroInscripcionController.class);
-            startActivity(intent);
         });
 
     }
