@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnUno.setOnClickListener(v -> {
-            ipTxt.setText("192.168.1.90");
+            ipTxt.setText("192.168.1.105");
         });
 
         btnDiez.setOnClickListener(v -> {

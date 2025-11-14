@@ -42,31 +42,32 @@ public class CrearCursoController extends AppCompatActivity {
 
         guardar.setOnClickListener(v->{
 
-            if (descripcion.getText().toString().equals("")){
+            if (descripcion.getText().toString().trim().isEmpty())
+                {
                 Toast.makeText(this, "Descripcion Vacía", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (duracion.getText().toString().equals("")){
+            if (duracion.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, "Duracion Vacía", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (precio.getText().toString().equals("")){
+            if (precio.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, "Precio sin valor", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (nombreS.getText().toString().equals("")){
+            if (nombreS.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, "Nombre Vacío", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (dirigidoa.getText().toString().equals("")){
+            if (dirigidoa.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, " Sin dirigidos", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (link.getText().toString().equals("")){
+            if (link.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, "Sin link", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (modalidad.getText().toString().equals("")){
+            if (modalidad.getText().toString().trim().isEmpty()){
                 Toast.makeText(this, "Sin modalidad", Toast.LENGTH_SHORT).show();
                 return;
             }

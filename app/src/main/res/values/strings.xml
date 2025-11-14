@@ -8,4 +8,7 @@
 	<string name="ES_Joke">Aqui Va el Chiste en español (si consiges api translate)</string>
 	<string name="remate">Aqui el remate</string>
 	<string name="ver_remate">Ver Remate</string>
+	<string name="ver_otro">Ver otro</string>
+	<string name="nombre_empresa">Arredondo y Sims</string>
+	<string name="certificado_de_aprobaci_n">Certificado de Aprobación</string>
 </resources>

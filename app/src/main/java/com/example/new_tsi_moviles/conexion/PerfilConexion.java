@@ -2,6 +2,7 @@ package com.example.new_tsi_moviles.conexion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -9,13 +10,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import com.example.new_tsi_moviles.dto.UserDTO;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PerfilConexion {
 
@@ -40,9 +39,16 @@ public void getPerfil(PerfilCallback perfilCallback){
             response -> {
                 UserDTO userDTO = new UserDTO();
                 try {
+                    Log.d("UserRecibido: ",response.toString());
+                    JSONArray rolesJSON = new JSONArray(response.getJSONArray("roles"));
+                    Set<String> rolesSet = new HashSet<>();
+                    for (int i = 0; i < rolesJSON.length(); i++) {
+                        rolesSet.add(rolesJSON.getString(i));
+                    }
                     userDTO.setEmail(response.getString("email"));
                     userDTO.setNombre(response.getString("nombre"));
                     userDTO.setApellido(response.getString("apellido"));
+                    userDTO.setRoles(rolesSet);
                     userDTO.setId(response.getLong("id"));
 
                     perfilCallback.onSuccess(userDTO);
@@ -50,7 +56,10 @@ public void getPerfil(PerfilCallback perfilCallback){
                     perfilCallback.onError(e);
                 }
             },
-            error -> perfilCallback.onError(error)
+            error -> {
+                Log.d("Error: ", error.getMessage());
+                perfilCallback.onError(error);
+            }
     ) {
         @Override
         public Map<String, String> getHeaders() {

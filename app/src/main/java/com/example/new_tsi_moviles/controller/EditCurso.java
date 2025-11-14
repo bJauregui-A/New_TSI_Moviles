@@ -1,8 +1,6 @@
 package com.example.new_tsi_moviles.controller;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.new_tsi_moviles.R;
 import com.example.new_tsi_moviles.conexion.CursoCallback;
+import com.example.new_tsi_moviles.conexion.MensajeCallback;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import com.example.new_tsi_moviles.service.CursoService;
 import org.json.JSONException;
@@ -25,6 +24,8 @@ public class EditCurso extends AppCompatActivity {
     private EditText nombre,descripcion,dirigido,modalidad,duracion,precio,link;
     private Button actualizar,cancelar;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_curso);
@@ -38,33 +39,8 @@ cursoService= new CursoService(this);
         precio = findViewById(R.id.edit_precio);
         link = findViewById(R.id.edit_link);
         stch = findViewById(R.id.stch_activo);
+        cargar();
 
-        cursoService.getCurso(new CursoCallback() {
-                                          @Override
-                                          public void onSuccess(CursoDTO curso2) {
-                                              curso = curso2;
-
-                                              nombre.setText(curso.getNombre());
-                                              descripcion.setText(curso.getDescripcion());
-                                              dirigido.setText(curso.getDirigidoa());
-                                              modalidad.setText(curso.getModalidad());
-                                              duracion.setText(String.valueOf(curso.getHoras()) );
-                                              precio.setText( String.valueOf(curso.getPrecio()));
-                                              if (curso.getActivo()){
-                                                  stch.setChecked(true);
-                                              }else {
-                                                  stch.setChecked(false);
-                                              }
-
-                                          }
-
-                                          @Override
-                                          public void onError(Exception e) {
-                                              Toast.makeText(EditCurso.this, "Error al encontrar curso", Toast.LENGTH_SHORT).show();
-                                          }
-
-                                      }
-                ,getIntent().getLongExtra("curso_id",-1L));
 
         actualizar = findViewById(R.id.btn_actualizar_edit);
         cancelar = findViewById(R.id.btn_cancelar_edit);
@@ -78,7 +54,7 @@ cursoService= new CursoService(this);
                         actualizare();
                         JSONObject json = new JSONObject();
                         try {
-                            json.put("id",curso.getId());
+                            json.put("id",getIntent().getLongExtra("curso_id",-1L));
                             json.put("precio", Integer.parseInt(precio.getText().toString()));
                             json.put("nombre", nombre.getText().toString());
                             json.put("descripcion", descripcion.getText().toString());
@@ -92,11 +68,10 @@ cursoService= new CursoService(this);
                             throw new RuntimeException(e);
                         }
 
-
-                        cursoService.updateCursos(new CursoCallback() {
+                        cursoService.updateCursos(new MensajeCallback() {
                             @Override
-                            public void onSuccess(CursoDTO curso) {
-                                Toast.makeText(EditCurso.this, "Actualizado", Toast.LENGTH_SHORT).show();
+                            public void onSuccess(String msg) {
+                                Toast.makeText(EditCurso.this, msg, Toast.LENGTH_SHORT).show();
                             }
                             @Override
                             public void onError(Exception e) {
@@ -142,6 +117,7 @@ cursoService= new CursoService(this);
             Toast.makeText(this, "Sin modalidad", Toast.LENGTH_SHORT).show();
             return;
         }
+        curso.setId(getIntent().getLongExtra("curso_id",-1L));
         curso.setDescripcion(descripcion.getText().toString());
         curso.setHoras(Integer.parseInt( duracion.getText().toString()));
         curso.setPrecio(Integer.parseInt(precio.getText().toString()));
@@ -151,6 +127,36 @@ cursoService= new CursoService(this);
         curso.setModalidad(modalidad.getText().toString());
         curso.setActivo(stch.isChecked());
 
+    }
+
+    private void cargar(){
+        cursoService.getCurso(new CursoCallback() {
+                                  @Override
+                                  public void onSuccess(CursoDTO curso2) {
+                                      curso = curso2;
+
+                                      nombre.setText(curso.getNombre());
+                                      descripcion.setText(curso.getDescripcion());
+                                      dirigido.setText(curso.getDirigidoa());
+                                      modalidad.setText(curso.getModalidad());
+                                      duracion.setText(String.valueOf(curso.getHoras()) );
+                                      precio.setText( String.valueOf(curso.getPrecio()));
+                                      link.setText(String.valueOf(curso.getLinkPago()));
+                                      if (curso.getActivo()){
+                                          stch.setChecked(true);
+                                      }else {
+                                          stch.setChecked(false);
+                                      }
+
+                                  }
+
+                                  @Override
+                                  public void onError(Exception e) {
+                                      Toast.makeText(EditCurso.this, "Error al encontrar curso", Toast.LENGTH_SHORT).show();
+                                  }
+
+                              }
+                ,getIntent().getLongExtra("curso_id",-1L));
     }
 
 }

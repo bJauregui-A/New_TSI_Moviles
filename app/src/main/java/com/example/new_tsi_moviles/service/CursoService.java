@@ -24,7 +24,7 @@ public void createCurso(MensajeCallback callback, JSONObject cursoJson){
         cursoConexion.createCurso(callback,cursoJson);
 }
 
-    public void updateCursos(CursoCallback cursoCallback, JSONObject cursoJson) {
+    public void updateCursos(MensajeCallback cursoCallback, JSONObject cursoJson) {
         cursoConexion.updateCurso( cursoCallback, cursoJson);
     }
     public void getCursos(CursosCallback cursoCallback, String ruta) {
@@ -35,6 +35,9 @@ public void createCurso(MensajeCallback callback, JSONObject cursoJson){
     }
     public void deleteCurso(MensajeCallback cursoCallback, Long id) {
         cursoConexion.deleteCurso( cursoCallback, id);
+    }
+    public void activarCurso(MensajeCallback cursoCallback, Long id) {
+        cursoConexion.activarCurso( cursoCallback, id);
     }
 
 

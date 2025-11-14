@@ -64,6 +64,7 @@ public class CursoUserController extends AppCompatActivity {
             @Override
             public void onSuccess(List<CursoDTO> cursos) {
                 cursosLocal.clear();
+                cursoAdapter.notifyDataSetChanged();
                 cursosLocal.addAll(cursos);
                 cursoAdapter.notifyDataSetChanged();
             }

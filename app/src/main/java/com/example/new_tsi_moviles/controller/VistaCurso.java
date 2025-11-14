@@ -3,9 +3,7 @@ package com.example.new_tsi_moviles.controller;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,32 +44,8 @@ public class VistaCurso extends AppCompatActivity {
         eliminar = findViewById(R.id.btn_borrar_vista);
         cancelar = findViewById(R.id.btn_cancelar_vista);
         inactivo = findViewById(R.id.inactivo);
+        cursoService = new CursoService(this);
 
-         cursoService = new CursoService(this);
-
-        eliminar.setOnClickListener(v -> {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Confirmar eliminación")
-                    .setMessage("¿Está seguro que desea eliminar este curso?")
-                    .setPositiveButton("Sí", (dialog, which) -> {
-                        cursoService.deleteCurso(new MensajeCallback() {
-                            @Override
-                            public void onSuccess(String mensaje) {
-                                Toast.makeText(ctx, "Curso eliminado", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                Toast.makeText(ctx, "Error al eliminar el curso", Toast.LENGTH_SHORT).show();
-                            }
-                        },curso.getId());
-
-                        finish();
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-        });
         cancelar.setOnClickListener(v -> {
             finish();
         });
@@ -97,8 +71,55 @@ public class VistaCurso extends AppCompatActivity {
                 duracion.setText(String.valueOf(curso.getHoras()) );
                 precio.setText( String.valueOf(curso.getPrecio()));
                 link.setText(String.valueOf(curso.getLinkPago()));
+
                 if (!curso.getActivo()) {
                     inactivo.setText("Inactivo");
+                    eliminar.setText("Activar");
+                    eliminar.setOnClickListener(v -> {
+                        new AlertDialog.Builder(ctx)
+                                .setTitle("Confirmar activacion")
+                                .setMessage("¿Está seguro que desea activar este curso?")
+                                .setPositiveButton("Sí", (dialog, which) -> {
+                                    cursoService.activarCurso(new MensajeCallback() {
+                                        @Override
+                                        public void onSuccess(String mensaje) {
+                                            Toast.makeText(ctx, "Curso activado", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+                                            Toast.makeText(ctx, "Error al activar el curso", Toast.LENGTH_SHORT).show();
+                                        }
+                                    },curso.getId());
+
+                                    finish();
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+                    });
+                }else{
+                    eliminar.setOnClickListener(v -> {
+                        new AlertDialog.Builder(ctx)
+                                .setTitle("Confirmar eliminación")
+                                .setMessage("¿Está seguro que desea eliminar este curso?")
+                                .setPositiveButton("Sí", (dialog, which) -> {
+                                    cursoService.deleteCurso(new MensajeCallback() {
+                                        @Override
+                                        public void onSuccess(String mensaje) {
+                                            Toast.makeText(ctx, "Curso eliminado", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+                                            Toast.makeText(ctx, "Error al eliminar el curso", Toast.LENGTH_SHORT).show();
+                                        }
+                                    },curso.getId());
+
+                                    finish();
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+                    });
                 }
 
 

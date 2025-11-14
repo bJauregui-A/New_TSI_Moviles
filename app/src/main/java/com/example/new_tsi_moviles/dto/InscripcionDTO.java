@@ -22,6 +22,6 @@ public class InscripcionDTO {
     private String nombreUser;
     private String emailUser;
 
-
+    private Boolean activo;
     private CursoUserState estado;
 }

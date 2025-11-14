@@ -2,8 +2,6 @@ package com.example.new_tsi_moviles.conexion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Debug;
-import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -13,11 +11,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.new_tsi_moviles.dto.CursoDTO;
 import com.example.new_tsi_moviles.dto.InscripcionDTO;
 import com.example.new_tsi_moviles.model.CursoUserState;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.xml.transform.ErrorListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +47,7 @@ String ip,strinToken,url;
                                     .id(cursoJson.getLong("id"))
                                     .descripcion(cursoJson.getString("descripcion"))
                                     .horas(cursoJson.getInt("horas"))
+                                            .activo(cursoJson.getBoolean("activo"))
                                     .dirigidoa(cursoJson.getString("dirigidoa"))
                                     .linkPago(cursoJson.getString("linkPago"))
                                     .modalidad(cursoJson.getString("modalidad"))
@@ -128,6 +125,7 @@ String ip,strinToken,url;
                                 .estado(CursoUserState.valueOf( cursoJson.getString("estado")))
                                 .idCurso(cursoJson.getLong("idCurso"))
                                 .idUser(cursoJson.getLong("idUser"))
+                                .activo(cursoJson.getBoolean("activo"))
                                 .emailUser(cursoJson.getString("emailUser"))
                                 .nombreUser(cursoJson.getString("nombreUser"))
                                 .nombreCurso(cursoJson.getString("nombreCurso"))
@@ -172,6 +170,7 @@ String ip,strinToken,url;
                                 .estado(CursoUserState.valueOf( cursoJson.getString("estado")))
                                 .idCurso(cursoJson.getLong("idCurso"))
                                 .idUser(cursoJson.getLong("idUser"))
+                                .activo(cursoJson.getBoolean("activo"))
                                 .emailUser(cursoJson.getString("emailUser"))
                                 .nombreUser(cursoJson.getString("nombreUser"))
                                 .nombreCurso(cursoJson.getString("nombreCurso"))
@@ -216,6 +215,7 @@ String ip,strinToken,url;
                                             .nombreCurso(cursoJson.getString("nombreCurso"))
                                             .idUser(cursoJson.getLong("idUser"))
                                             .idCurso(cursoJson.getLong("idCurso"))
+                                    .activo(cursoJson.getBoolean("activo"))
                                     .emailUser(cursoJson.getString("emailUser"))
                                     .nombreUser(cursoJson.getString("nombreUser"))
                                             .estado(CursoUserState.valueOf(cursoJson.getString("estado")))
@@ -264,6 +264,7 @@ String ip,strinToken,url;
                                     .idUser(cursoJson.getLong("idUser"))
                                     .idCurso(cursoJson.getLong("idCurso"))
                                     .emailUser(cursoJson.getString("emailUser"))
+                                    .activo(cursoJson.getBoolean("activo"))
                                     .nombreUser(cursoJson.getString("nombreUser"))
                                     .estado(CursoUserState.valueOf(cursoJson.getString("estado")))
                                     .build());

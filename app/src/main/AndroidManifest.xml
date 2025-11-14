@@ -11,6 +11,7 @@
 			android:label="@string/app_name"
 			android:supportsRtl="true"
 			android:theme="@style/Theme.New_TSI_Moviles">
+
 		<activity
 				android:name=".MainActivity"
 
@@ -31,6 +32,7 @@
 		<activity android:name=".controller.EditCurso"/>
 		<activity android:name=".controller.CertificadosController"/>
 		<activity android:name=".controller.BadJokeController"/>
+		<activity android:name=".controller.FiltroInscripcionController"/>
 
 	</application>
 

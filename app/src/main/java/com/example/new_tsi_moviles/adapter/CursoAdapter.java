@@ -81,7 +81,7 @@ private Integer a;
 
         if (!curso.getActivo()){
             holder.btnVer.setText("Inactivo");
-            holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+            holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#520d24")));
         }else{
             holder.btnVer.setText("Ver");
             holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));

@@ -39,7 +39,7 @@
                 android:hint="Ingrese Nombre del Curso"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+				android:digits=" qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
                 android:inputType="textMultiLine"
-				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+				android:digits=" qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:lines="3" />
 
             <EditText
@@ -60,7 +60,7 @@
                 android:hint="Dirigido A"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+				android:digits=" qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -70,7 +70,7 @@
                 android:hint="Modalidad (Presencial, Virtual, Híbrida)"
                 android:layout_marginBottom="12dp"
                 android:padding="12dp"
-				android:digits="qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+				android:digits=" qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="text" />
 
             <EditText
@@ -100,7 +100,7 @@
                 android:hint="Link de inscripción"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
-				android:digits="/:qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
+				android:digits="/: qwertyuiopñlkjhgfdsazxcvbnmQWERTYUIOPÑLKJHGFDSAZXCVBNM,.1234567890"
                 android:inputType="textUri" />
 
             <LinearLayout

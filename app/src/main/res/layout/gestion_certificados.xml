@@ -26,20 +26,21 @@
             android:padding="16dp"
             android:background="#FFFFFF" />
 
-        <EditText
-            android:id="@+id/text_buscar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Buscar certificado..."
-            android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:background="#FFFFFF" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
+			<Button
+					android:id="@+id/btn_filtro"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:layout_marginEnd="8dp"
+					android:text="Filtro"
+					android:textColor="#FFFFFF"
+					android:background="#4CAF50" />
 
             <Button
                 android:id="@+id/btn_add"
@@ -50,11 +51,6 @@
                 android:text="Agregar"
                 android:textColor="#FFFFFF"
                 android:background="#4CAF50" />
-
-
-
-
-
 
         </LinearLayout>
 

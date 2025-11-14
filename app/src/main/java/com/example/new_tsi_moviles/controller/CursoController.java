@@ -68,7 +68,6 @@ public class CursoController extends AppCompatActivity {
             ruta += "/"+buscar.getText().toString();
         }
 
-
         cursoService.getCursos(new CursosCallback() {
             @Override
             public void onSuccess(List<CursoDTO> cursos) {

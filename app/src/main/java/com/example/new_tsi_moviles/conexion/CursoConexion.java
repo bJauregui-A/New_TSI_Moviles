@@ -2,6 +2,7 @@ package com.example.new_tsi_moviles.conexion;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -56,7 +57,7 @@ public class CursoConexion {
                                     .modalidad(cursoJson.getString("modalidad"))
                                     .nombre(cursoJson.getString("nombre"))
                                     .precio(cursoJson.getInt("precio"))
-                                            .activo(cursoJson.getBoolean("activo"))
+                                    .activo(cursoJson.getBoolean("activo"))
                                     .build());
                         }
                         callback.onSuccess(cursos);
@@ -81,43 +82,25 @@ public class CursoConexion {
         queue.add(request);
     }
 
-    public void updateCurso(CursoCallback callback,JSONObject cursoJson) {
+    public void updateCurso(MensajeCallback callback,JSONObject cursoJson) {
 
         RequestQueue queue = Volley.newRequestQueue(this.context);
 
+        Log.e("JSON", cursoJson.toString());
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.PUT,
-                url,
+                url+"/update",
                 cursoJson,
                 response -> {
-                    try {
-                        callback.onSuccess(CursoDTO.builder()
-                                        .activo(response.getBoolean("activo"))
-                                        .horas(response.getInt("horas"))
-                                        .precio(response.getInt("precio"))
-                                .descripcion(cursoJson.getString("descripcion"))
-                                        .id(response.getLong("id"))
-                                        .nombre(cursoJson.getString("nombre"))
-                                        .modalidad(cursoJson.getString("modalidad"))
-                                        .linkPago(cursoJson.getString("linkPago"))
-                                        .dirigidoa(cursoJson.getString("dirigidoa"))
-
-                                .build());
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
+                        callback.onSuccess("Curso Actualizado");
                 },
-                error -> {
-                    callback.onError(error);
-                }
+                callback::onError
         ){
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 if (strinToken != null && !strinToken.isEmpty()) {
-
                     headers.put("Authorization", "Bearer " + strinToken);
-
                 }
                 headers.put("Content-Type", "application/json");
                 return headers;
@@ -214,7 +197,7 @@ public class CursoConexion {
 
                 Request<String> request = new Request<String>(
                         Request.Method.DELETE,
-                        url + "/delete/"+id.toString(), // La URL final se construye aquí
+                        url + "/delete/"+id, // La URL final se construye aquí
                         null
                 ) {
 
@@ -224,6 +207,50 @@ public class CursoConexion {
                         if (strinToken != null && !strinToken.isEmpty()) {
                             // --- SOLUCIÓN ---
                             // Usar la variable 'strinToken' que contiene el JWT real.
+                            headers.put("Authorization", "Bearer " + strinToken);
+                        }
+                        return headers;
+                    }
+
+                    @Override
+                    protected Response parseNetworkResponse(NetworkResponse networkResponse) {
+                        return Response.success("Curso Eliminado", null);
+                    }
+
+                    @Override
+                    protected void deliverResponse(String response) {
+                        callback.onSuccess(response);
+
+                    }
+                };
+
+                queue.add(request);
+            }
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(context, "EL curso ya fue eliminado anteriormente", Toast.LENGTH_LONG).show();
+            }
+        },id);
+    }
+
+    public void activarCurso(MensajeCallback callback,Long id) {
+
+
+        getCurso(new CursoCallback() {
+            @Override
+            public void onSuccess(CursoDTO curso) {
+                RequestQueue queue = Volley.newRequestQueue(context);
+
+                Request<String> request = new Request<String>(
+                        Request.Method.GET,
+                        url + "/undelete/"+id, // La URL final se construye aquí
+                        null
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        if (strinToken != null && !strinToken.isEmpty()) {
                             headers.put("Authorization", "Bearer " + strinToken);
                         }
                         return headers;

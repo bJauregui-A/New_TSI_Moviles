@@ -25,7 +25,6 @@ public class InscripcionesAdapter extends BaseAdapter {
     private List<InscripcionDTO> inscripciones;
     private LayoutInflater inflater;
     private UserDTO user;
-    private InscripcionService inscripcionService;
 
     private Integer a;
 
@@ -53,46 +52,41 @@ public class InscripcionesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CursoAdapter.ViewHolder holder;
+        ViewHolder holder;
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragmento_curso, parent, false);
-            holder = new CursoAdapter.ViewHolder();
+            holder = new ViewHolder();
             holder.imagenCurso = convertView.findViewById(R.id.iimagenCurso);
             holder.nombreCurso = convertView.findViewById(R.id.nombreFrag);
             holder.modalidad = convertView.findViewById(R.id.modalidadFrag);
             holder.precio = convertView.findViewById(R.id.precioFrag);
             holder.btnVer = convertView.findViewById(R.id.btn_ver);
-
             convertView.setTag(holder);
         } else {
-            holder = (CursoAdapter.ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
         InscripcionDTO curso = inscripciones.get(position);
 
-        if (curso.getEstado().equals(CursoUserState.CERTIFICADO)){
-            holder.btnVer.setText("Obtener Certificado");
-            holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F48FB1")));
-        }
+        holder.btnVer.setText("Ver");
+        holder.btnVer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+
+
+        holder.nombreCurso.setText(curso.getNombreCurso());
         holder.modalidad.setText(curso.getEmailUser());
         holder.precio.setText(curso.getEstado().toString());
-        holder.nombreCurso.setText(curso.getNombreCurso());
         holder.btnVer.setOnClickListener(v -> {
-
-
-                Intent intent = new Intent(context, VistaCursoUser.class);
-
-                intent.putExtra("curso_id", curso.getIdCurso());
-
-                context.startActivity(intent);
-
-
-
+            Intent intent = new Intent(context, VistaCursoUser.class);
+            intent.putExtra("inscripcion_id", curso.getIdCurso());
+            context.startActivity(intent);
         });
+
         holder.imagenCurso.setImageResource(R.drawable.logo);
+
         return convertView;
     }
+
 
 
 

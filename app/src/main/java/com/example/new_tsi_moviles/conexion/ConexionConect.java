@@ -43,8 +43,7 @@ public class ConexionConect {
                 Toast.makeText(context,"No se percibe conexion con el servidor", Toast.LENGTH_SHORT).show();
             }
         });
-
-
+        queue.add(request);
     }
 
 }

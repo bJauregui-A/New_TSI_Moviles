@@ -45,7 +45,7 @@
 		<Button
 				android:id="@+id/ver_remate"
 				android:layout_width="wrap_content"
-				android:text="@string/ver_remate"
+				android:text="@string/ver_otro"
 				android:layout_marginTop="30dp"
 				android:textSize="20sp"
 				android:layout_height="wrap_content"/>

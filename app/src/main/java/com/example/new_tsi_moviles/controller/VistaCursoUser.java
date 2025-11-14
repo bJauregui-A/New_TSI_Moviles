@@ -64,9 +64,6 @@ public class VistaCursoUser extends AppCompatActivity {
             finish();
         });
 
-
-
-
         userDTO = new UserDTO();
 
         perfilService.getPerfil(new PerfilCallback() {
