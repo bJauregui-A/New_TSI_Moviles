@@ -35,6 +35,7 @@
 		<activity android:name=".controller.UsuarioController"/>
 		<activity android:name=".controller.EditUserController"/>
 		<activity android:name=".controller.CreateUserController"/>
+		<activity android:name=".controller.MapaController"/>
 
 	</application>
 

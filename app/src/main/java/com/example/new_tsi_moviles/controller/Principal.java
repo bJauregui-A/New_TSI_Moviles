@@ -16,7 +16,7 @@ import com.example.new_tsi_moviles.service.PerfilService;
 
 public class Principal extends AppCompatActivity {
 
-    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser,btn_Joke,btn_users;
+    Button btnCursos,btnPerfil,bntnCertificados, btn_cursosUser,btn_Joke,btn_users,btn_mapa;
     PerfilService perfilService;
 
     @Override
@@ -31,6 +31,7 @@ public class Principal extends AppCompatActivity {
         btn_Joke = findViewById(R.id.bad_joke);
         btn_users = findViewById(R.id.btn_users);
         perfilService = new PerfilService(this);
+        btn_mapa= findViewById(R.id.btn_mapa);
 
         btnCursos.setOnClickListener(v -> {
             Intent intent = new Intent(this, CursoController.class);
@@ -59,6 +60,11 @@ public class Principal extends AppCompatActivity {
             Intent intent = new Intent(this, UsuarioController.class);
             startActivity(intent);
         });
+        btn_mapa.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MapaController.class);
+            startActivity(intent);
+        });
+
 
         perfilService.getPerfil(new PerfilCallback() {
             @Override

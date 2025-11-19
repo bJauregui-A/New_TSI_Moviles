@@ -65,6 +65,12 @@
 				android:layout_height="wrap_content"
 				android:text="Chiste"
 		/>
+		<Button
+				android:id="@+id/btn_mapa"
+				android:layout_width="300dp"
+				android:layout_height="wrap_content"
+				android:text="Nuestra ubicacion"
+		/>
 
 
 	</LinearLayout>
