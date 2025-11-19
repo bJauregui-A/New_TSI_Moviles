@@ -19,6 +19,7 @@ import com.example.new_tsi_moviles.service.CursoService;
 public class VistaCurso extends AppCompatActivity {
     private CursoDTO curso;
     Context ctx;
+    Context preCtx;
 
     private LinearLayout cursoLayout;
     private CursoService cursoService ;
@@ -84,11 +85,13 @@ public class VistaCurso extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(String mensaje) {
                                             Toast.makeText(ctx, "Curso activado", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
 
                                         @Override
                                         public void onError(Exception e) {
                                             Toast.makeText(ctx, "Error al activar el curso", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                     },curso.getId());
 
@@ -107,18 +110,21 @@ public class VistaCurso extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(String mensaje) {
                                             Toast.makeText(ctx, "Curso eliminado", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
 
                                         @Override
                                         public void onError(Exception e) {
-                                            Toast.makeText(ctx, "Error al eliminar el curso", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ctx, "Error al eliminar Curso", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                     },curso.getId());
 
-                                    finish();
+
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
+
                     });
                 }
 
@@ -126,6 +132,8 @@ public class VistaCurso extends AppCompatActivity {
             }
             @Override
             public void onError(Exception e) {
+                Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
+                finish();
             }
         },getIntent().getLongExtra("curso_id",-1L))
         ;

@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
+import com.android.volley.*;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -189,8 +186,6 @@ public class CursoConexion {
     }
 
     public void deleteCurso(MensajeCallback callback,Long id) {
-
-
         getCurso(new CursoCallback() {
             @Override
             public void onSuccess(CursoDTO curso) {
@@ -201,7 +196,6 @@ public class CursoConexion {
                         url + "/delete/"+id, // La URL final se construye aquí
                         null
                 ) {
-
                     @Override
                     public Map<String, String> getHeaders() {
                         Map<String, String> headers = new HashMap<>();
@@ -212,10 +206,21 @@ public class CursoConexion {
                         }
                         return headers;
                     }
+                    @Override
+                    protected Response<String> parseNetworkResponse(NetworkResponse networkResponse) {
+                        int status = networkResponse.statusCode;
+                        if (status >= 200 && status < 300) {
+                            // Éxito real
+                            return Response.success("Curso Eliminado", null);
+                        } else {
+                            // Error → forzar a que Volley llame a onError
+                            return Response.error(new VolleyError("Error: " + status));
+                        }
+                    }
 
                     @Override
-                    protected Response parseNetworkResponse(NetworkResponse networkResponse) {
-                        return Response.success("Curso Eliminado", null);
+                    public void deliverError(VolleyError error) {
+                        callback.onError(error);
                     }
 
                     @Override
@@ -229,7 +234,7 @@ public class CursoConexion {
             }
             @Override
             public void onError(Exception e) {
-                Toast.makeText(context, "EL curso ya fue eliminado anteriormente", Toast.LENGTH_LONG).show();
+                callback.onError(e);
             }
         },id);
     }
@@ -256,11 +261,23 @@ public class CursoConexion {
                         }
                         return headers;
                     }
-
                     @Override
-                    protected Response parseNetworkResponse(NetworkResponse networkResponse) {
-                        return Response.success("Curso Eliminado", null);
+                    protected Response<String> parseNetworkResponse(NetworkResponse networkResponse) {
+                        int status = networkResponse.statusCode;
+
+                        if (status >= 200 && status < 300) {
+                            // Éxito real
+                            return Response.success("Curso Activado", null);
+                        } else {
+                            // Error → forzar a que Volley llame a onError
+                            return Response.error(new VolleyError("Error: " + status));
+                        }
                     }
+                    @Override
+                    public void deliverError(VolleyError error) {
+                        callback.onError(error);
+                    }
+
 
                     @Override
                     protected void deliverResponse(String response) {
@@ -273,7 +290,7 @@ public class CursoConexion {
             }
             @Override
             public void onError(Exception e) {
-                Toast.makeText(context, "EL curso ya fue eliminado anteriormente", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "EL curso ya fue activado anteriormente", Toast.LENGTH_LONG).show();
             }
         },id);
 

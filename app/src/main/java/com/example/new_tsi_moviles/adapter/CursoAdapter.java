@@ -98,6 +98,7 @@ private Integer a;
 
                 intent.putExtra("curso_id", curso.getId());
 
+
                 context.startActivity(intent);
             }
 
