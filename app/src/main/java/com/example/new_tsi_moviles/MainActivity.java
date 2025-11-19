@@ -51,7 +51,7 @@ puedes=false;
         });
 
         btnDiez.setOnClickListener(v -> {
-            ipTxt.setText("10.33.123.15");
+            ipTxt.setText("10.33.121.242");
 
         });
 

@@ -108,6 +108,7 @@ public class BadJokeController extends AppCompatActivity {
         contents.put(content);
         body.put("contents", contents);
 
+        Log.e("Enviado",body.toString());
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
